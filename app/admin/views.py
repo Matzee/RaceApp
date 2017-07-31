@@ -49,6 +49,13 @@ def summary():
 
     return render_template('admin/summary/summary.html', data=cursor.fetchall(), title="summary")
 
+@admin.route('/prob')
+@login_required
+def prob():
+
+
+    return render_template('admin/prob/prob.html',title="probability")
+
 
 @admin.route('/rfor', methods=['GET', 'POST'])
 def rfor():
