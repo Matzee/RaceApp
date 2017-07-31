@@ -18,13 +18,20 @@ Flask App for the Big Data Coding Competition (it-talents)
 
 ## Installation
 
-* git clone
-* Download mysql
-* mysql < schema.sql
-* pip install -r requirements.txt
-* export FLASK_CONFIG=development
-* export FLASK_APP=run.py
-* flask run
+1) Be sure to have mysql installed
+
+git clone
+
+mysql < schema.sql
+
+pip install -r requirements.txt
+
+export FLASK_CONFIG=development
+
+
+export FLASK_APP=run.py
+
+flask run
 
 ## Further improvements
 
