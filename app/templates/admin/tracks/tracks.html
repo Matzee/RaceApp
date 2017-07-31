@@ -1,0 +1,52 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Tracks{% endblock %}
+{% block body %}
+<div class="content-section">
+
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Tracks</h1>
+        {% if tracks %}
+          <hr class="intro-divider">
+          <div class="left">
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="10%">
+              <thead>
+                <tr>
+                  <th width="5%"> ID </th>
+                  <th width="15%"> Name </th>
+                  <th width="30%"> Description </th>
+                  <th width="5%"> Edit </th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for track in tracks %}
+                <tr>
+                  <td> {{ track.track_id }} </td>
+                  <td> {{ track.name }} </td>
+                  <td> {{ track.description }} </td>
+                  <td>
+                    <a href="{{ url_for('admin.edit_track', id=track.track_id) }}">
+                      <i class="fa fa-pencil"></i> Edit
+                    </a>
+                </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No tracks have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+
+
+  </div>
+</div>
+</div>
+
+{% endblock %}

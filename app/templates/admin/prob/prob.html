@@ -1,0 +1,117 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}summary{% endblock %}
+{% block body %}
+
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<style>
+input[type=text] {
+    width: 20%;
+    padding: 4px 4px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.button {
+    background-color: #aec251; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: white;
+    color: #aec251;
+    border: 2px solid #aec251;
+}
+
+.button1:hover {
+    background-color: #aec251;
+    color: white;
+}
+
+
+</style>
+
+	<div class="content-section">
+
+						<h1 style="text-align:center;">What are the chances to win?</h1>
+						<hr class="intro-divider"></hr>
+  	          <div class="center">
+                <form class="form-inline" >
+
+                  <label>Challenger</label>
+                  <input type="text" value="" name="fir"/>
+                  <label>Opponent</label>
+                  <input type="text" value="" name="sec"/>
+
+
+              <button id="btn" class="button button1" >create chart</button>
+              </form>
+              <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+              </div>
+
+
+    	</div>
+
+
+<script>
+  $(function () {
+
+      $('#btn').click(function(e){
+        e.preventDefault();
+        var val1,
+            val2,
+            val3,
+            options;
+
+        val1 = parseFloat($('input[name=fir]').val());
+        val2 = parseFloat($('input[name=sec]').val());
+        $.ajax({
+        url: "{{ url_for('admin.rfor') }}",
+        method: "POST",
+        contentType: 'application/json;charset=UTF-8',
+        data : JSON.stringify({'data':{"chall":val1,"oppo":val2}}),
+        success: function(response){
+        val3=JSON.parse(response['Lose']);
+        val4=JSON.parse(response['Win']);
+        options = {credits: false,
+          title: {
+             text: 'Odds to win'},
+            series: [{
+                type: 'pie',
+
+                     data: [{
+                       name: 'Challenger loses',
+                       y: val3
+                   }, {
+                       name: 'Challenger wins',
+                       y: val4
+                   }]
+
+            }]
+        };
+                  $('#container').highcharts(options);
+        ;}
+        });
+
+      });
+
+
+  });
+</script>
+
+
+{% endblock %}

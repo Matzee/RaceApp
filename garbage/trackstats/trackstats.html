@@ -1,0 +1,58 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Trackstats{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <b>This text is bold</b>
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Trackstats</h1>
+        {% if trackstats %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="5%"> ID </th>
+                  <th width="5%"> Number of races </th>
+                  <th width="5%"> Last race </th>
+                  <th width="5%"> Prize money </th>
+                  <th width="5%"> Mean  money </th>
+                  <th width="5%"> Min money </th>
+                  <th width="5%"> Max money </th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for trackstat in trackstats %}
+                <tr>
+                  <td> {{ trackstat.track_id }} </td>
+                  <td> {{ trackstat.no_races }} </td>
+                  <td> {{ trackstat.lastrace }} </td>
+                  <td> {{ trackstat.prizemoney }} </td>
+                  <td> {{ trackstat.meanmoney }} </td>
+                  <td> {{ trackstat.minmon }} </td>
+                  <td> {{ trackstat.maxmon }} </td>
+
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No trackstats have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
