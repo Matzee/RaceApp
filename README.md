@@ -5,6 +5,15 @@ Flask App for the Big Data Coding Competition (IT-talents)
 * Used packages can be found in requirements.txt
 * Predictive Model is built and tuned in advance with sklearn. Random Forest is compared with logistic Regression. Logistic Regression is chosen in final. Predictive Model is dumped.
 
+## Principal information
+* There are two possible Login Roles.
+  * Admin-Role:
+    * Login: admin@admin.com
+    * Password: admin2016
+  * User-Role:
+    * Login: 1@user.com
+    * Password: 123456
+
 ## Installation
 
 * git clone
