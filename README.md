@@ -1,1 +1,1 @@
-RaceApp for the Coding Competition Big Data Competition
+RaceApp for the Big Data Coding Competition
