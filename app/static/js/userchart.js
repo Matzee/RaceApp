@@ -1,8 +1,9 @@
+//creates chart for the user using queue, crossfilter, dc and d3
+
 queue()
     .defer(d3.json, "user/charts")
     .await(makeGraphs);
-
-
+    
 d3.select(window).on('resize.updatedc', function() {
   dc.events.trigger(function() {
     dc.chartRegistry.list().forEach(function(chart) {
@@ -17,7 +18,6 @@ d3.select(window).on('resize.updatedc', function() {
   },500);
 });
 
-
 //Charts
 //global defined because the html doc calls the charts
 var moveChart = dc.lineChart('#monthly-move-chart');
@@ -27,7 +27,7 @@ var weatherChart = dc.pieChart('#weather-chart');
 var trackChart = dc.pieChart('#track-chart');
 var quarterChart = dc.pieChart('#quarter-chart');
 var dayOfWeekChart = dc.rowChart('#day-of-week-chart');
-var nasdaqCount = dc.dataCount('.dc-data-count');
+var dataCount = dc.dataCount('.dc-data-count');
 
 
 function makeGraphs(error,projectsJson) {
@@ -103,7 +103,6 @@ function makeGraphs(error,projectsJson) {
         return day + '.' + name[day];
   });
 
-
 	//Calculate metrics
 
   var wonByMonthGroup = moveMonths.group().reduceSum(function (d) {
@@ -113,7 +112,6 @@ function makeGraphs(error,projectsJson) {
   var monthlyLossesGroup = moveMonths.group().reduceSum(function (d) {
        return d.lost;
   });
-
 
   var numWeather = Weather.group();
 
@@ -128,7 +126,7 @@ function makeGraphs(error,projectsJson) {
    });
   var dayOfWeekGroup = dayOfWeek.group();
 
-  moveChart /* dc.lineChart('#monthly-move-chart', 'chartGroup') */
+  moveChart
       .renderArea(true)
       .width(990)
       .height(200)
@@ -153,7 +151,7 @@ function makeGraphs(error,projectsJson) {
       ;
 
   volumeChart
-      .width(990) /* dc.barChart('#monthly-volume-chart', 'chartGroup'); */
+      .width(990)
       .height(40)
       .margins({top: 0, right: 50, bottom: 20, left: 40})
       .dimension(moveMonths)
@@ -163,7 +161,7 @@ function makeGraphs(error,projectsJson) {
       .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2017, 11, 31)]))
       ;
 
-  gainOrLossChart /* dc.pieChart('#gain-loss-chart', 'chartGroup') */
+  gainOrLossChart
       .width(180)
       .height(180)
       .radius(80)
@@ -182,7 +180,7 @@ function makeGraphs(error,projectsJson) {
       ;
 
 
-  weatherChart /* dc.pieChart('#gain-loss-chart', 'chartGroup') */
+  weatherChart
       .width(180)
       .height(180)
       .radius(80)
@@ -197,7 +195,7 @@ function makeGraphs(error,projectsJson) {
   .group(numTracks);
 
 
-  quarterChart /* dc.pieChart('#quarter-chart', 'chartGroup') */
+  quarterChart
       .width(180)
       .height(180)
       .radius(80)
@@ -205,7 +203,7 @@ function makeGraphs(error,projectsJson) {
       .dimension(quarter)
       .group(quarterGroup);
 
-  dayOfWeekChart /* dc.rowChart('#day-of-week-chart', 'chartGroup') */
+  dayOfWeekChart
         .width(180)
         .height(180)
         .margins({top: 20, left: 10, right: 10, bottom: 20})
@@ -222,7 +220,7 @@ function makeGraphs(error,projectsJson) {
         .elasticX(true)
         .xAxis().ticks(4);
 
-  nasdaqCount /* dc.dataCount('.dc-data-count', 'chartGroup'); */
+  dataCount
       .dimension(ndx)
       .group(all)
       ;

@@ -1,3 +1,7 @@
+#1) creates the app
+#2) handles error pages
+
+
 import os
 
 # third-party imports
@@ -16,7 +20,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 
-def create_app(config_name):
+def create_app(config_name): #creates the app
     if os.getenv('FLASK_CONFIG') == "production":
         app = Flask(__name__)
         app.config.update(

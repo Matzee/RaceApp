@@ -1,9 +1,6 @@
 from __future__ import print_function
 import sys
 
-
-
-
 from flask import abort, flash, redirect, render_template, url_for,request,jsonify
 from flask_login import current_user, login_required
 from flask_sqlalchemy import SQLAlchemy
@@ -15,17 +12,12 @@ import pandas as pd
 import json
 import datetime, decimal
 
-
-
-
 def alchemyencoder(obj):
     """JSON encoder function for SQLAlchemy special classes."""
     if isinstance(obj, datetime.date):
         return obj.isoformat()
     elif isinstance(obj, decimal.Decimal):
         return float(obj)
-
-
 
 @user.route('/userstats')
 @login_required
@@ -35,10 +27,11 @@ def list_userstats():
 @user.route('/user/charts')
 def donorschoose_projects():
     """
-    Create d3 data
+    Create data for d3 chart
+
+    A single sql statement is used due to better flexibility of the statement
     """
     db = SQLAlchemy()
-    #print("select *,If(winner=%d,1,0) as won,If(winner=%d,0,1) as lost from races where winner = %d or loser = %d " % (int(current_user.username),int(current_user.username),int(current_user.username)) )
     cursor = db.engine.execute("select *,If(winner=%d,1,0) as won,If(winner=%d,0,1) as lost from races where winner = %d or loser = %d and status = 'finished'"
         % (int(current_user.username),int(current_user.username),int(current_user.username),int(current_user.username)) )
     res = cursor.fetchall()

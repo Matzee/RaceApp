@@ -8,6 +8,8 @@ from ..models import Employee
 class RegistrationForm(FlaskForm):
     """
     Form for users to create new account
+
+    Is not used in the current version!!
     """
     email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired()])

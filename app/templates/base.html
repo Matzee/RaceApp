@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!-->
+Basic page for the referencing, the navbar and footbar. Most of the other html pages are referenced
+to this page
+-->
+
 <html lang="en">
 <head>
     <title>{{ title }} | Project Raceboard</title>
@@ -32,10 +37,6 @@
                       <li id="dashboard_link_admin"><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
                       <li id="track_link"><a href="{{ url_for('admin.list_tracks') }}">Tracks</a></li>
                       <li id="trackstat_link"><a href="{{ url_for('admin.list_trackstats') }}">Track statistics</a></li>
-
-                      <li id="departments_link"><a href="{{ url_for('admin.list_departments') }}">Departments</a></li>
-                      <li id="roles_link"><a href="{{ url_for('admin.list_roles') }}">Roles</a></li>
-                      <li id="employees_link"><a href="{{ url_for('admin.list_employees') }}">Employees</a></li>
                       <li id="summary"><a href="{{ url_for('admin.summary') }}">Summary </a></li>
                       <li id="prob"><a href="{{ url_for('admin.prob') }}">Forecast</a></li>
 
@@ -48,7 +49,6 @@
                     <li id="username_greeting"><a><i class="fa fa-user"></i>  Hi, {{ current_user.username }}!</a></li>
                   {% else %}
                     <li id="home_link"><a href="{{ url_for('home.homepage') }}">Home</a></li>
-                    <li id="register_link"><a href="{{ url_for('auth.register') }}">Register</a></li>
                     <li id="login_link"><a href="{{ url_for('auth.login') }}">Login</a></li>
                   {% endif %}
               </ul>

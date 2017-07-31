@@ -9,6 +9,7 @@ from ..models import Employee
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    #not used
     form = RegistrationForm()
     if form.validate_on_submit():
         employee = Employee(email=form.email.data,

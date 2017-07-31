@@ -1,3 +1,5 @@
+//creates chart for the admin using queue, crossfilter, dc and d3
+
 queue()
     .defer(d3.json, "donorschoose/projects")
     .await(makeGraphs);
@@ -7,7 +9,7 @@ d3.select(window).on('resize.updatedc', function() {
   dc.events.trigger(function() {
     dc.chartRegistry.list().forEach(function(chart) {
             var container = chart.root().node();
-            if (!container) return; // some graphs don't have a node (?!)
+            if (!container) return; // some graphs don't have a node
             container=container.parentNode.getBoundingClientRect();
             chart.width(container.width);
             chart.rescale && chart.rescale(); // some graphs don't have a rescale
@@ -18,17 +20,18 @@ d3.select(window).on('resize.updatedc', function() {
 });
 
 function makeGraphs(error,projectsJson) {
-	//Clean projectsJson data
 
   var width = document.getElementById('time-chart').offsetWidth;
 
 	var donorschooseProjects = projectsJson;
-	//var dateFormat = d3.time.format("%Y-%m-%d");
+
   var dateFormat = d3.time.format("%Y-%m-%d");
+
   donorschooseProjects.forEach(function(d) {
       d["race_driven"] = dateFormat.parse(d["race_driven"]);
 
   });
+
 	//Create a Crossfilter instance
 	var ndx = crossfilter(donorschooseProjects);
 
@@ -36,7 +39,6 @@ function makeGraphs(error,projectsJson) {
 	var dateDim = ndx.dimension(function(d) { return d.race_driven; });
 	var trackDim = ndx.dimension(function(d) { return d.track_id; });
   var trackDim_row = ndx.dimension(function(d) { return d.track_id; });
-
   var weekdayDimension = ndx.dimension(function(d) {
       return new Date(d.race_driven).getDay();
   });
@@ -52,19 +54,16 @@ function makeGraphs(error,projectsJson) {
 	var minDate = dateDim.bottom(1)[0]["race_driven"];
 	var maxDate = dateDim.top(1)[0]["race_driven"];
 
-    //Charts
+  //Charts
 	var timeChart = dc.barChart("#time-chart");
   var resourceTypeChart = dc.pieChart("#daytrack-chart");
   var RowChart = dc.rowChart("#row-chart");
-
-
 
   function sel_stack(i) {
       return function(d) {
           return d.value[i];
       };
   }
-
 
 	timeChart
 		.width(width)
@@ -93,14 +92,12 @@ function makeGraphs(error,projectsJson) {
     .legend(dc.legend());
 
 
-
   RowChart
     .width(width*(3/5))
     .height(300)
     .dimension(trackDim_row)
     .group(numMon)
     .elasticX(true);
-
 
   dc.renderAll();
 

@@ -5,7 +5,6 @@ from wtforms.validators import DataRequired
 from wtforms import validators
 
 
-
 class DepartmentForm(FlaskForm):
     """
     Form for admin to add or edit a department

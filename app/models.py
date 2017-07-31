@@ -1,3 +1,5 @@
+#uses the database as classes
+
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -54,7 +56,7 @@ def load_user(user_id):
 
 class Track(db.Model):
     """
-    Create a Department table
+    Create a Track table
     """
 
     __tablename__ = 'tracks'
@@ -70,7 +72,7 @@ class Track(db.Model):
 
 class Daytracks(db.Model):
     """
-    Create a Department table
+    Create a Daytracks table
     """
 
     __tablename__ = 'day_track_races'
@@ -85,7 +87,7 @@ class Daytracks(db.Model):
 
 class Trackstats(db.Model):
     """
-    Create a Department table
+    Create a Track statistics table
     """
 
     __tablename__ = 'trackstats'
