@@ -1,4 +1,4 @@
-#RaceApp
+# RaceApp
 
 Flask App for the Big Data Coding Competition (IT-talents)
 * Python 2.7 is used
